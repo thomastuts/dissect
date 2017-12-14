@@ -7,18 +7,22 @@ var title = require('./lib/parser/title');
 var summary = require('./lib/parser/summary');
 
 module.exports = {
-  extractData: function (articleUrl, callback) {
-    request(articleUrl, function (err, response, body) {
-      var data = {};
-      var preppedHtml = cleaner.prepForParsing(body);
+    extractData: function (articleUrl, callback) {
+        request(articleUrl, function (err, response, body) {
 
-      data.domain = url.parse(articleUrl).host;
-      data.author = author.getAuthor(preppedHtml);
-      data.title = title.getTitle(preppedHtml);
-      data.content = content.getArticleContent(preppedHtml, data.host);
-      data.summary = summary.getSummary(preppedHtml, data.content);
+            var preppedHtml = cleaner.prepForParsing(body);
+            var data = {
+                body:preppedHtml,
+                article: {}
+            };
 
-      callback(null, data);
-    });
-  }
+            data.article.domain = url.parse(articleUrl).host;
+            data.article.author = author.getAuthor(preppedHtml);
+            data.article.title = title.getTitle(preppedHtml);
+            data.article.content = content.getArticleContent(preppedHtml, data.host);
+            data.article.summary = summary.getSummary(preppedHtml, data.content);
+
+            callback(null, data);
+        });
+    }
 }
