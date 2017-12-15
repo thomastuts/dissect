@@ -19,7 +19,11 @@ module.exports = {
             data.article.domain = url.parse(articleUrl).host;
             data.article.author = author.getAuthor(preppedHtml);
             data.article.title = title.getTitle(preppedHtml);
-            data.article.content = content.getArticleContent(preppedHtml, data.host);
+            if(data.article.domain === 'www.perfil.com'){
+                data.article.content = content.getArticleContentForItemprop(preppedHtml,data.host);
+            }else{
+                data.article.content = content.getArticleContent(preppedHtml, data.host);
+            }
             data.article.summary = summary.getSummary(preppedHtml, data.content);
 
             callback(null, data);
