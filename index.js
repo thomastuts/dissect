@@ -16,8 +16,10 @@ module.exports = {
                 article: {}
             };
 
+            data.article.domain = url.parse(articleUrl).host;
+
             if(data.article.domain === 'www.perfil.com'){
-                console.log("Get Perfil");
+                console.log("Get Perfil",data.article.domain);
                 author.getAuthorAsync(preppedHtml,function(author){
                     data.article.author = author;
 
@@ -35,7 +37,8 @@ module.exports = {
                 });
 
             }else{
-                data.article.domain = url.parse(articleUrl).host;
+                console.log("Get Perfil",data.article.domain);
+
                 data.article.author = author.getAuthor(preppedHtml);
                 data.article.title = title.getTitle(preppedHtml);
                 data.article.content = content.getArticleContent(preppedHtml, data.host);
