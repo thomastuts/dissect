@@ -17,8 +17,6 @@ module.exports = {
             };
 
             data.article.domain = url.parse(articleUrl).host;
-            data.article.title = title.getTitle(preppedHtml);
-            data.article.summary = summary.getSummary(preppedHtml, data.content);
 
             if(data.article.domain === 'www.perfil.com'){
                 author.getAuthorAsync(preppedHtml,function(author){
@@ -26,7 +24,13 @@ module.exports = {
 
                     content.getArticleContentForItemprop(preppedHtml,data.host,function(cleanContent){
                         data.article.content = cleanContent;
-                        callback(null, data);
+
+                        title.getTitleAsync(preppedHtml,function (title) {
+                            data.article.title = title;
+                            data.article.summary = summary.getSummary(preppedHtml, data.content);
+
+                            callback(null, data);
+                        });
                     });
                 });
 
