@@ -24,7 +24,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "cheerio": "https://github.com/cmarrero01/cheerio.git",
-    "node-jsdom": "git+https://github.com/cmarrero01/node-jsdom.git",
+    "jsdom-no-contextify": "git+https://github.com/cmarrero01/jsdom.git",
     "lodash": "^3.5.0",
     "request": "^2.53.0"
   },
