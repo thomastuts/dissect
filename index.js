@@ -19,14 +19,17 @@ module.exports = {
             data.article.domain = url.parse(articleUrl).host;
             data.article.author = author.getAuthor(preppedHtml);
             data.article.title = title.getTitle(preppedHtml);
-            if(data.article.domain === 'www.perfil.com'){
-                data.article.content = content.getArticleContentForItemprop(preppedHtml,data.host);
-            }else{
-                data.article.content = content.getArticleContent(preppedHtml, data.host);
-            }
             data.article.summary = summary.getSummary(preppedHtml, data.content);
 
-            callback(null, data);
+            if(data.article.domain === 'www.perfil.com'){
+                content.getArticleContentForItemprop(preppedHtml,data.host,function(cleanContent){
+                    data.article.content = cleanContent;
+                    callback(null, data);
+                });
+            }else{
+                data.article.content = content.getArticleContent(preppedHtml, data.host);
+                callback(null, data);
+            }
         });
     }
 }
