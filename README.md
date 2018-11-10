@@ -34,6 +34,16 @@ The result looks like this:
     "author": "Thomas Tuts",
     "title": "Article Extractor Demo",
     "summary": "A Node.js module to retrieve article content and metadata from a URL.",
-    "content": "<p>This is the article content.</p>"
+    "content": "<p>This is the article content.</p>",
+    "keywords": "article,extractor,demo,node,module,metadata",
+    "image": "http://ep.yimg.com/ca/I/paulgraham_2271_3232"
 }
 ```
+
+## Change log
+
+#1.1.0
+* Corrected a logic related to parse and extract information abou href presence in `<a>` elements and it's '#' href marker
+* Improved structure with keywords based on meta tags `<meta name="keywords">` and `<meta class="siwftype" name="tags">`
+* Improved structure with image based on scored rank (`how far images are related to <main> or <body> element`) or `<meta class="siwftype" name="image">`
+* Added a option to use `<meta class="siwftype" name="blogger_name">` as a source for author name
