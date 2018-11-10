@@ -5,6 +5,14 @@ var async = require('async');
 
 var articlesToParse = [
   {
+    url: 'https://www.engadget.com/2018/11/08/samsung-foldable-phone-infinity-flex/',
+    filename: 'engadget'
+  },
+  {
+    url: 'https://www.engadget.com/2018/11/08/youtube-available-for-switch/',
+    filename: 'engadget2'
+  },
+  {
     url: 'http://gizmodo.com/watch-a-single-day-on-the-london-tube-in-two-minutes-1692810056',
     filename: 'gizmodo'
   },
@@ -43,7 +51,12 @@ async.each(articlesToParse, function (articleToParse, parseCallback) {
     console.log('Parsed article:', data.title);
     console.log(data.summary);
     console.log('-----');
-    fs.writeFileSync(path.join(process.cwd(), 'data/' + articleToParse.filename + '.html'), data.content);
+
+    const rootPath = path.join(path.join(process.cwd(), 'data'));
+    if (!fs.existsSync(rootPath)) fs.mkdirSync(rootPath);
+
+    fs.writeFileSync(path.join(rootPath, '/' + articleToParse.filename + '.js'), JSON.stringify(data));
+    fs.writeFileSync(path.join(rootPath, '/' + articleToParse.filename + '.html'), data.content);
     parseCallback();
   });
 }, function () {
